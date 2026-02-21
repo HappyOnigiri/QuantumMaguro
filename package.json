@@ -9,6 +9,7 @@
     "install:all": "npm install && npm install --prefix ethereal-strings && npm install --prefix focus-crystallizer && npm install --prefix orbital-symphony && npm install --prefix time-lapse-note"
   },
   "devDependencies": {
+    "@types/node": "^25.3.0",
     "concurrently": "^9.1.2",
     "vite": "^7.3.1"
   }
