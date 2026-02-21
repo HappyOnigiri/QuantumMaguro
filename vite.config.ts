@@ -2,6 +2,27 @@ import { defineConfig, Plugin } from 'vite';
 import { resolve } from 'path';
 import fs from 'fs';
 
+function getAppDirectories(rootDir: string) {
+  return fs.readdirSync(rootDir, { withFileTypes: true })
+    .filter(dirent => dirent.isDirectory() && !dirent.name.startsWith('.') && !dirent.name.startsWith('_') && dirent.name !== 'node_modules')
+    .map(dirent => dirent.name);
+}
+
+function getRollupInputs(rootDir: string) {
+  const dirs = getAppDirectories(rootDir);
+  const inputs: Record<string, string> = {
+    main: resolve(rootDir, 'index.html')
+  };
+  for (const dir of dirs) {
+    const indexPath = resolve(rootDir, dir, 'index.html');
+    const readmePath = resolve(rootDir, dir, 'README.md');
+    if (fs.existsSync(indexPath) && fs.existsSync(readmePath)) {
+      inputs[dir] = indexPath;
+    }
+  }
+  return inputs;
+}
+
 function generatePortalCardsPlugin(): Plugin {
   return {
     name: 'generate-portal-cards',
@@ -9,9 +30,7 @@ function generatePortalCardsPlugin(): Plugin {
       if (!html.includes('<!-- PORTAL_CARDS -->')) return html;
 
       const rootDir = __dirname;
-      const dirs = fs.readdirSync(rootDir, { withFileTypes: true })
-        .filter(dirent => dirent.isDirectory() && !dirent.name.startsWith('.') && dirent.name !== 'node_modules')
-        .map(dirent => dirent.name);
+      const dirs = getAppDirectories(rootDir);
 
       const cards: string[] = [];
 
@@ -61,14 +80,7 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      input: {
-        main: resolve(__dirname, 'index.html'),
-        ethereal: resolve(__dirname, 'ethereal-strings/index.html'),
-        focus: resolve(__dirname, 'focus-crystallizer/index.html'),
-        orbital: resolve(__dirname, 'orbital-symphony/index.html'),
-        timelapse: resolve(__dirname, 'time-lapse-note/index.html'),
-        zenparticles: resolve(__dirname, 'zen-particles/index.html'),
-      }
+      input: getRollupInputs(__dirname)
     }
   }
 });
