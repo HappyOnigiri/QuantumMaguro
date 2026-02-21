@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "install:all": "npm install && npm install --prefix ethereal-strings && npm install --prefix focus-crystallizer && npm install --prefix orbital-symphony && npm install --prefix time-lapse-note"
+    "install:all": "npm install && npm install --prefix doppelganger-dodge"
   },
   "devDependencies": {
     "@types/node": "^25.3.0",
