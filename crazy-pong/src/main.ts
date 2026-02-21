@@ -51,6 +51,7 @@ function drawBall() {
 }
 
 function drawScore() {
+  ctx.textAlign = 'left';
   ctx.font = '24px "Orbitron", sans-serif';
   ctx.fillStyle = '#fff';
   ctx.fillText(`Score: ${score}`, 20, 40);
@@ -135,6 +136,9 @@ function update() {
   // Bottom collision (Game Over)
   if (ball.y + ball.radius > canvas.height) {
     isGameOver = true;
+    if (document.pointerLockElement === canvas) {
+      document.exitPointerLock();
+    }
   }
 }
 
@@ -165,15 +169,14 @@ function loop() {
 
 // Event Listeners
 canvas.addEventListener('mousemove', (e) => {
-  const rect = canvas.getBoundingClientRect();
-  // We need to calculate the actual mouse position considering the rotation of the game container.
-  // A simple approximation is to use clientX and adjust with the container's center, but it's complex.
-  // The 'crazy' part is that the mouse controls become extremely unintuitive and hard when rotated!
-  // To make it slightly manageable, we use unrotated coordinates for the paddle.
-
-  const rootX = e.clientX - rect.left;
-  // paddle.x is centered on the mouse
-  paddle.x = rootX - paddle.width / 2;
+  if (document.pointerLockElement === canvas) {
+    // プレイ中はPointer Lockの移動量(movementX)を使う
+    paddle.x += e.movementX;
+  } else {
+    const rect = canvas.getBoundingClientRect();
+    const rootX = e.clientX - rect.left;
+    paddle.x = rootX - paddle.width / 2;
+  }
 
   // Boundary check
   if (paddle.x < 0) paddle.x = 0;
@@ -192,6 +195,10 @@ canvas.addEventListener('click', () => {
     ball.radius = 10;
     currentRotation = 0;
     gameContainer.style.transform = `rotate(0deg)`;
+  }
+
+  if (!isGameOver && document.pointerLockElement !== canvas) {
+    canvas.requestPointerLock();
   }
 });
 
