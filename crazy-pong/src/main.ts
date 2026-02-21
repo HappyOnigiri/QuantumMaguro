@@ -112,15 +112,21 @@ function update() {
   ball.y += ball.dy;
 
   // Wall collision (left/right)
-  if (ball.x + ball.radius > canvas.width || ball.x - ball.radius < 0) {
+  if (ball.x + ball.radius > canvas.width && ball.dx > 0) {
     ball.dx *= -1;
     applyCrazyGimmick();
+    ball.x = canvas.width - ball.radius;
+  } else if (ball.x - ball.radius < 0 && ball.dx < 0) {
+    ball.dx *= -1;
+    applyCrazyGimmick();
+    ball.x = ball.radius;
   }
 
   // Wall collision (top)
-  if (ball.y - ball.radius < 0) {
+  if (ball.y - ball.radius < 0 && ball.dy < 0) {
     ball.dy *= -1;
     applyCrazyGimmick();
+    ball.y = ball.radius;
   }
 
   // Paddle collision
