@@ -1,14 +1,48 @@
-/* Add your styles here */
+:root {
+  --bg-color: #1a1a1a;
+  --text-color: #e0e0e0;
+  --link-color: #888;
+  --link-hover-color: #fff;
+  --font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: var(--font-family);
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f0f0f0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.back-link {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  text-decoration: none;
+  color: var(--link-color);
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.back-link:hover {
+  color: var(--link-hover-color);
 }
 
 #app {
   text-align: center;
+}
+
+h1 {
+  font-size: 3em;
+  line-height: 1.1;
+  background: -webkit-linear-gradient(315deg, #42d392 25%, #647eff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5em;
 }
