@@ -72,17 +72,32 @@ function showAnnoyingMessage() {
 }
 
 function applyCrazyGimmick() {
-  // 画面をランダムな角度に傾ける（-45度〜45度）
-  const newRotation = (Math.random() - 0.5) * 90;
-  currentRotation = newRotation;
-  gameContainer.style.transform = `rotate(${currentRotation}deg)`;
+  if (score <= 3) {
+    // Score 3 までは普通の pong（傾きなし、ボールサイズ固定、煽り文字なし）
+    currentRotation = 0;
+    gameContainer.style.transform = `rotate(0deg)`;
+    ball.radius = 10;
+  } else if (score <= 7) {
+    // Score 7 までは軽めの傾きのみ（煽り文字なし、ボールサイズ固定）
+    // -10度から10度程度の傾き
+    const newRotation = (Math.random() - 0.5) * 20;
+    currentRotation = newRotation;
+    gameContainer.style.transform = `rotate(${currentRotation}deg)`;
+    ball.radius = 10;
+  } else {
+    // Score 8 からは現在のダイナミックに傾き、煽り文字を表示するモード
+    // 画面をランダムな角度に傾ける（-45度〜45度）
+    const newRotation = (Math.random() - 0.5) * 90;
+    currentRotation = newRotation;
+    gameContainer.style.transform = `rotate(${currentRotation}deg)`;
 
-  // ボールのサイズもバウンドのたびにランダムに変化（5〜20）
-  ball.radius = 5 + Math.random() * 15;
+    // ボールのサイズもバウンドのたびにランダムに変化（5〜20）
+    ball.radius = 5 + Math.random() * 15;
 
-  // たまに煽りメッセージを出す
-  if (Math.random() < 0.3) {
-    showAnnoyingMessage();
+    // たまに煽りメッセージを出す
+    if (Math.random() < 0.3) {
+      showAnnoyingMessage();
+    }
   }
 }
 
