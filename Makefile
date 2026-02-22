@@ -1,4 +1,4 @@
-.PHONY: ci build-ui watch-ui check-ts lint
+.PHONY: ci build-ui watch-ui check-ts lint repomix
 
 # =============================================================================
 # Any Products Makefile
@@ -28,3 +28,8 @@ check-ts:
 	done
 	@echo "------------------------------------------------------------"
 	@echo "TypeScript check completed successfully."
+
+# プロジェクト全体を一つのファイルにまとめる (LLM用)
+repomix:
+	@mkdir -p tmp/repomix
+	npx repomix --output tmp/repomix/repomix-output.txt
