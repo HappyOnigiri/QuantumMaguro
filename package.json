@@ -5,12 +5,11 @@
   "description": "Root package to manage multiple applications",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "install:all": "npm install && npm install --prefix doppelganger-dodge && npm install --prefix crazy-pong"
+    "build": "vite build"
   },
   "devDependencies": {
     "@types/node": "^25.3.0",
-    "concurrently": "^9.1.2",
+    "typescript": "~5.9.3",
     "vite": "^7.3.1"
   }
 }
