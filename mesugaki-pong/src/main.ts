@@ -141,12 +141,19 @@ function showAnnoyingMessage() {
 	const phrase =
 		availablePhrases[Math.floor(Math.random() * availablePhrases.length)];
 	lastPhrase = phrase;
-	annoyingMessage.innerHTML = `
-    <div class="message-group">
-      <img src="${characterImg}" class="character-img" alt="character">
-      <span class="message-text">${phrase}</span>
-    </div>
-  `;
+	annoyingMessage.replaceChildren();
+	const group = document.createElement("div");
+	group.className = "message-group";
+	const img = document.createElement("img");
+	img.src = characterImg;
+	img.className = "character-img";
+	img.alt = "character";
+	const span = document.createElement("span");
+	span.className = "message-text";
+	span.textContent = phrase;
+	group.appendChild(img);
+	group.appendChild(span);
+	annoyingMessage.appendChild(group);
 	annoyingMessage.style.opacity = "1";
 	annoyingMessage.style.transform = `translate(-50%, -50%) scale(${MESSAGE_BASE_SCALE + Math.random() * MESSAGE_RANDOM_SCALE_RANGE})`;
 
@@ -256,15 +263,29 @@ function update() {
 
 		// ゲームオーバー時にも動的メッセージを表示
 		const phrase = "ざぁ～こざぁ～こ♡ よわよわのよわ～♡♡";
-		annoyingMessage.innerHTML = `
-      <div class="message-group">
-        <img src="${characterImg}" class="character-img" alt="character">
-        <span class="message-text" style="font-size: ${GAME_OVER_FONT_SIZE}px">${phrase}</span>
-      </div>
-      <div class="restart-group">
-        <button class="restart-hint">RESTART</button>
-      </div>
-    `;
+		annoyingMessage.replaceChildren();
+		const group = document.createElement("div");
+		group.className = "message-group";
+		const img = document.createElement("img");
+		img.src = characterImg;
+		img.className = "character-img";
+		img.alt = "character";
+		const span = document.createElement("span");
+		span.className = "message-text";
+		span.style.fontSize = `${GAME_OVER_FONT_SIZE}px`;
+		span.textContent = phrase;
+		group.appendChild(img);
+		group.appendChild(span);
+
+		const restartGroup = document.createElement("div");
+		restartGroup.className = "restart-group";
+		const restartBtn = document.createElement("button");
+		restartBtn.className = "restart-hint";
+		restartBtn.textContent = "RESTART";
+		restartGroup.appendChild(restartBtn);
+
+		annoyingMessage.appendChild(group);
+		annoyingMessage.appendChild(restartGroup);
 		annoyingMessage.style.opacity = "1";
 		annoyingMessage.style.transform = `translate(-50%, -50%) scale(1.0)`;
 		appFooter?.classList.remove("hidden");

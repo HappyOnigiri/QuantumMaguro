@@ -12,13 +12,30 @@ def check_file(path: Path) -> list[str]:
     errors = []
     try:
         content = path.read_text(encoding="utf-8")
+        in_block_comment = False
         for i, line in enumerate(content.splitlines(), 1):
-            # Comments are excluded from 'any' check (simple line check)
-            if "//" in line:
-                line = line.split("//")[0]
-            if "/*" in line:
-                line = line.split("/*")[0]
-                
+            if not in_block_comment:
+                if "/*" in line:
+                    in_block_comment = True
+                    part_before = line.split("/*")[0]
+                    part_after_start = line.split("/*", 1)[1]
+                    if "*/" in part_after_start:
+                        in_block_comment = False
+                        part_after = part_after_start.split("*/", 1)[1]
+                        line = part_before + part_after
+                    else:
+                        line = part_before
+                if "//" in line:
+                    line = line.split("//")[0]
+            else:
+                if "*/" in line:
+                    in_block_comment = False
+                    line = line.split("*/", 1)[1]
+                    if "//" in line:
+                        line = line.split("//")[0]
+                else:
+                    line = ""
+                    
             if EXPLICIT_ANY_RE.search(line):
                 errors.append(f"{path}:{i}: Found explicit 'any'")
             if TS_IGNORE_RE.search(line):
@@ -27,21 +44,21 @@ def check_file(path: Path) -> list[str]:
         errors.append(f"{path}: Error reading file: {e}")
     return errors
 
+def is_valid_source(path: Path) -> bool:
+    if "node_modules" in str(path) or "_template" in str(path) or ".agent" in str(path):
+        return False
+    if path.name.endswith(".test.ts"):
+        return False
+    return True
+
 def main():
     all_errors = []
     
     # Scan all .ts and .tsx files in subdirectories (excluding node_modules and _template)
-    for path in Path(".").rglob("*.ts"):
-        if "node_modules" in str(path) or "_template" in str(path) or ".agent" in str(path):
-            continue
-        if path.name.endswith(".test.ts"):
-            continue
-        all_errors.extend(check_file(path))
-    
-    for path in Path(".").rglob("*.tsx"):
-        if "node_modules" in str(path) or "_template" in str(path) or ".agent" in str(path):
-            continue
-        all_errors.extend(check_file(path))
+    for ext in ["*.ts", "*.tsx"]:
+        for path in Path(".").rglob(ext):
+            if is_valid_source(path):
+                all_errors.extend(check_file(path))
 
     if all_errors:
         print("\n".join(all_errors))

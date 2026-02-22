@@ -299,7 +299,6 @@ body {
   border-bottom: 2px solid var(--cyber-blue);
   box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
   z-index: 5;
-  flex-shrink: 0;
   backdrop-filter: blur(5px);
 }
 .header-item {
@@ -541,8 +540,6 @@ body {
   justify-content: center;
   background: rgba(0, 5, 10, 0.5);
   border-top: 1px solid rgba(0, 243, 255, 0.2);
-  flex-shrink: 0;
-  padding: 0 2em;
   width: 100%;
   box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.5);
 }

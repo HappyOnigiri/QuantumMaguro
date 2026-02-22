@@ -52,7 +52,7 @@ ts-check-diff:
 		exit 0; \
 	fi; \
 	echo "$$files" | sed 's/^/ - /'; \
-	npx --yes @biomejs/biome@latest check $$files
+	npx biome check $$files
 
 # TS/TSXの自動修正
 ts-fix-diff:
@@ -66,7 +66,7 @@ ts-fix-diff:
 		exit 0; \
 	fi; \
 	echo "$$files" | sed 's/^/ - /'; \
-	npx --yes @biomejs/biome@latest check --write $$files
+	npx biome check --write $$files
 
 # HTMLのチェック（Prettier使用）
 html-check-diff:
@@ -80,7 +80,7 @@ html-check-diff:
 		exit 0; \
 	fi; \
 	echo "$$files" | sed 's/^/ - /'; \
-	npx --yes prettier@latest --check $$files
+	npx prettier --check $$files
 
 # HTMLの自動修正
 html-fix-diff:
@@ -94,7 +94,7 @@ html-fix-diff:
 		exit 0; \
 	fi; \
 	echo "$$files" | sed 's/^/ - /'; \
-	npx --yes prettier@latest --write $$files
+	npx prettier --write $$files
 
 # プロジェクト全体を一つのファイルにまとめる (LLM用)
 repomix:

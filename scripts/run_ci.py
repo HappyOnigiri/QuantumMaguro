@@ -36,6 +36,10 @@ def execute_phase(phase_name, tasks):
     """
     if phase_name:
         print(f"--- {phase_name} ---")
+        
+    if not tasks:
+        print(f"Skipping {phase_name}: No tasks to run.")
+        return True
     
     failed = False
     failure_details = []
@@ -56,12 +60,12 @@ def execute_phase(phase_name, tasks):
                 failed = True
                 failure_details.append((name, output))
     
-    # エラー詳細の表示
     if failed:
         print("\n=== FAILURE DETAILS ===")
         for name, output in failure_details:
             print(f"--- {name} Output ---")
-            print(output.strip())
+            safe_output = output or ""
+            print(safe_output.strip())
             print("-----------------------")
         return False
     

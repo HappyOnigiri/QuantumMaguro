@@ -45,7 +45,7 @@ let idleTimer = 0;
 let lastKeyTime = 0;
 let animFrameId = 0;
 let gameTimerId = 0;
-const currentTaishoEmoji = "🧑🏻‍🍳";
+let currentTaishoEmoji = "🧑🏻‍🍳";
 let countdownIntervalId = 0;
 
 // DOM helper
@@ -155,7 +155,7 @@ function updateReadingDisplay(readingEl: HTMLElement, sushi: ActiveSushi) {
 	const pattern = sushi.patterns[bestPatternIdx];
 	const matchIdx = sushi.matchIndices[bestPatternIdx];
 
-	readingEl.innerHTML = "";
+	readingEl.replaceChildren();
 	const matched = document.createElement("span");
 	matched.className = "matched";
 	matched.textContent = pattern.substring(0, matchIdx);
@@ -303,7 +303,7 @@ function showComboBurst(text: string) {
 
 function setRandomTaisho() {
 	const emojis = currentConfig.TAISHO_EMOJIS;
-	const currentTaishoEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+	currentTaishoEmoji = emojis[Math.floor(Math.random() * emojis.length)];
 	taishoEmoji.textContent = currentTaishoEmoji;
 	taishoBubble.textContent =
 		getTaishoLine("start") || "いらっしゃい！何でも握るよ！";
@@ -830,7 +830,7 @@ function initSoftwareKeyboard() {
 		["z", "x", "c", "v", "b", "n", "m"],
 	];
 
-	keyboardArea.innerHTML = ""; // Clear existing
+	keyboardArea.replaceChildren(); // Clear existing
 
 	layout.forEach((rowChars, rowIndex) => {
 		const rowEl = document.createElement("div");

@@ -8,7 +8,9 @@
     "build": "vite build"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@types/node": "^25.3.0",
+    "prettier": "3.4.2",
     "typescript": "~5.9.3",
     "vite": "^7.3.1"
   },

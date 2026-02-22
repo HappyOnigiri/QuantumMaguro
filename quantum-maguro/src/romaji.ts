@@ -64,7 +64,11 @@ const ROMAJI_EQUIV_GROUPS: string[][] = [
 
 const ROMAJI_TOKEN_TO_EQUIV = new Map<string, string[]>();
 for (const group of ROMAJI_EQUIV_GROUPS) {
-	for (const t of group) ROMAJI_TOKEN_TO_EQUIV.set(t, group);
+	for (const t of group) {
+		const existing = ROMAJI_TOKEN_TO_EQUIV.get(t) || [];
+		const merged = Array.from(new Set([...existing, ...group]));
+		ROMAJI_TOKEN_TO_EQUIV.set(t, merged);
+	}
 }
 
 function isAsciiLowerAlpha(c: string): boolean {

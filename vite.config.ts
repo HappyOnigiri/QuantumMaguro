@@ -75,8 +75,33 @@ function generatePortalCardsPlugin(): Plugin {
   };
 }
 
+function generateRobotsPlugin(): Plugin {
+  return {
+    name: "generate-robots-txt",
+    generateBundle() {
+      const siteUrl = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || process.env.VITE_SITE_URL || "https://quantum-maguro.vercel.app";
+      this.emitFile({
+        type: "asset",
+        fileName: "robots.txt",
+        source: `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`
+      });
+    },
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        if (req.url === "/robots.txt") {
+          const siteUrl = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || process.env.VITE_SITE_URL || "https://quantum-maguro.vercel.app";
+          res.setHeader("Content-Type", "text/plain");
+          res.end(`User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`);
+          return;
+        }
+        next();
+      });
+    }
+  };
+}
+
 export default defineConfig({
-  plugins: [generatePortalCardsPlugin()],
+  plugins: [generatePortalCardsPlugin(), generateRobotsPlugin()],
   server: {
     port: 5181,
   },
