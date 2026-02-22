@@ -305,8 +305,28 @@ function draw() {
 	// Canvas上での描画は廃止（HTMLレイヤーに統一）
 }
 
-function loop() {
-	update();
+let lastTime = 0;
+const TIMESTEP = 1000 / 60;
+let accumulator = 0;
+
+function loop(timestamp: number) {
+	if (lastTime === 0) {
+		lastTime = timestamp;
+	}
+	let deltaTime = timestamp - lastTime;
+	lastTime = timestamp;
+
+	if (deltaTime > 250) {
+		deltaTime = 250;
+	}
+
+	accumulator += deltaTime;
+
+	while (accumulator >= TIMESTEP) {
+		update();
+		accumulator -= TIMESTEP;
+	}
+
 	draw();
 	requestAnimationFrame(loop);
 }
@@ -365,7 +385,7 @@ window.addEventListener("click", () => {
 });
 
 // Start game
-loop();
+requestAnimationFrame(loop);
 
 // Version display
 const appVersion = document.getElementById("app-version");
