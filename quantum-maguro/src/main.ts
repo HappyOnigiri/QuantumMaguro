@@ -317,7 +317,9 @@ function setTaishoLine(trigger: string) {
 	if (!line) return;
 	taishoBubble.textContent = line;
 	clearTimeout(taishoTimeout);
-	taishoTimeout = window.setTimeout(() => {}, 2500);
+	taishoTimeout = window.setTimeout(() => {
+		taishoBubble.textContent = getTaishoLine("start") || "いらっしゃい！何でも握るよ！";
+	}, 2500);
 }
 
 // ---------- Input Handler ----------
@@ -682,8 +684,6 @@ function startGame(config: GameConfig = NORMAL_CONFIG) {
 	inputDisplay.textContent = "";
 	inputHint.textContent = "キーボードで寿司を打とう";
 
-	titleScreen.style.display = "none";
-	resultScreen.style.display = "none";
 	titleScreen.style.display = "none";
 	resultScreen.style.display = "none";
 	gameScreen.style.display = "flex";
