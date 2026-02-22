@@ -11,6 +11,16 @@ let score = 0;
 let isGameOver = false;
 let isGameStarted = false;
 
+// スコアしきい値の定数化
+const SCORE_THRESHOLD_ENCOURAGING = 3;
+const SCORE_THRESHOLD_CHALLENGING = 7;
+
+// メッセージ・表示関連の定数
+const MESSAGE_BASE_SCALE = 0.7;
+const MESSAGE_RANDOM_SCALE_RANGE = 0.5;
+const MESSAGE_DISPLAY_DURATION = 1200;
+const GAME_OVER_FONT_SIZE = 52;
+
 const paddle = {
   width: 100,
   height: 15,
@@ -29,16 +39,43 @@ const ball = {
 
 let currentRotation = 0;
 
-const annoyingPhrases = [
-  "えっ、遅くない？",
-  "よそ見してる？",
-  "草",
-  "もっと頑張れ",
-  "目開いてる？",
-  "その程度の反射神経？",
-  "寝てる？",
-  "まさか本気じゃないよね？"
-];
+const phrasesByStage = {
+  encouraging: [
+    "がんばれっがんばれっ！あたしが見ててあげるから♡",
+    "ほらほら、もうちょっとじゃん！やれるやれる～！",
+    "おにーさんならできるって信じてあげてるんだからねっ！",
+    "すっご～い！あたしが応援してあげたおかげだね♡",
+    "ないちゃダメだよ？あたしがついてるでしょ～！",
+    "えらいえらい♡よしよししてあげよっか？",
+    "へぇ～ちゃんとやれるんじゃん！その調子その調子っ♡",
+    "あたしの応援パワー受け取ってよねっ！ぜったい負けんな！",
+    "ほらっ、下向いてないで？あたしの顔見て？大丈夫だから♡",
+    "最後まであきらめないの！あたしが見届けてあげるっ♡"
+  ],
+  challenging: [
+    "ふ～ん？ほんとにできるのかな～？見せてみてよ♡",
+    "へぇ～？口だけじゃないとこ、証明してみせてよ？",
+    "おにーさんってさぁ、あたしに勝てると思ってる？ねぇ？",
+    "ふぅん、やるじゃん？……まぁあたしの方がすごいけど♡",
+    "それで本気のつもり？もっと本気出してよ、つまんないな～",
+    "あっそ～？じゃあ実力見せてみなよ。待っててあげる♡",
+    "え、もう限界なの？あたしまだ全然余裕なんだけど～？",
+    "かかってきなよ♡ ……怖いの？しょうがないな～",
+    "あたしに追いつけると思ってんの？面白いこと言うね♡",
+    "ねぇねぇ、もしかして手加減してる？してないの？……え、マジ？"
+  ],
+  mocking: [
+    "だっさ～ｗｗ あたしの方がうまくできちゃうけど？",
+    "え～っｗ それで全力なのぉ？うっそだぁ～ｗｗｗ",
+    "よわっ♡ よわっ♡ おにーさんよわすぎ～♡♡♡",
+    "ぷっくくく……ごめんね？笑うつもりなかったんだけどｗｗ",
+    "み～じめ♡ み～じめ♡ 泣いちゃう？泣いていいよ？ｗ",
+    "あたしに敵うと思った？その自信どっから来るのｗｗ",
+    "は？もう終わり？はっや～ｗｗ ざぁ～こ♡",
+    "なんかかわいそうになってきちゃった♡ なぐさめてほしい？ん～？ｗ",
+    "おにーさんって何やってもダメダメじゃ～ん♡ わからせてあげよっか？ｗ"
+  ]
+};
 
 function drawPaddle() {
   ctx.fillStyle = '#fff';
@@ -61,43 +98,50 @@ function drawScore() {
 }
 
 function showAnnoyingMessage() {
-  const phrase = annoyingPhrases[Math.floor(Math.random() * annoyingPhrases.length)];
-  annoyingMessage.textContent = phrase;
+  let phrases: string[];
+  if (score <= SCORE_THRESHOLD_ENCOURAGING) {
+    phrases = phrasesByStage.encouraging;
+  } else if (score <= SCORE_THRESHOLD_CHALLENGING) {
+    phrases = phrasesByStage.challenging;
+  } else {
+    phrases = phrasesByStage.mocking;
+  }
+
+  const phrase = phrases[Math.floor(Math.random() * phrases.length)];
+  annoyingMessage.innerHTML = `
+    <div class="message-group">
+      <img src="character.png" class="character-img" alt="character">
+      <span class="message-text">${phrase}</span>
+    </div>
+  `;
   annoyingMessage.style.opacity = '1';
-  annoyingMessage.style.transform = `translate(-50%, -50%) scale(${1 + Math.random()})`;
+  annoyingMessage.style.transform = `translate(-50%, -50%) scale(${MESSAGE_BASE_SCALE + Math.random() * MESSAGE_RANDOM_SCALE_RANGE})`;
 
   setTimeout(() => {
     annoyingMessage.style.opacity = '0';
-  }, 800);
+  }, MESSAGE_DISPLAY_DURATION);
 }
 
 function applyCrazyGimmick() {
-  if (score <= 3) {
-    // Score 3 までは普通の pong（傾きなし、ボールサイズ固定、煽り文字なし）
+  if (score <= SCORE_THRESHOLD_ENCOURAGING) {
+    // スコア初期段階（応援モード）
     currentRotation = 0;
     gameContainer.style.transform = `rotate(0deg)`;
     ball.radius = 10;
-  } else if (score <= 7) {
-    // Score 7 までは軽めの傾きのみ（煽り文字なし、ボールサイズ固定）
-    // -10度から10度程度の傾き
+  } else if (score <= SCORE_THRESHOLD_CHALLENGING) {
+    // スコア中間段階（挑発モード）
     const newRotation = (Math.random() - 0.5) * 20;
     currentRotation = newRotation;
     gameContainer.style.transform = `rotate(${currentRotation}deg)`;
     ball.radius = 10;
   } else {
-    // Score 8 からは現在のダイナミックに傾き、煽り文字を表示するモード
-    // 画面をランダムな角度に傾ける（-45度〜45度）
+    // スコア後半段階（煽りモード）
     const newRotation = (Math.random() - 0.5) * 90;
     currentRotation = newRotation;
     gameContainer.style.transform = `rotate(${currentRotation}deg)`;
 
-    // ボールのサイズもバウンドのたびにランダムに変化（5〜20）
+    // ボールのサイズ変化
     ball.radius = 5 + Math.random() * 15;
-
-    // たまに煽りメッセージを出す
-    if (Math.random() < 0.3) {
-      showAnnoyingMessage();
-    }
   }
 }
 
@@ -154,6 +198,7 @@ function update() {
 
       score++;
       applyCrazyGimmick();
+      showAnnoyingMessage(); // パドルで打ち返した時に100%表示
     }
   }
 
@@ -164,6 +209,21 @@ function update() {
     if (document.pointerLockElement === canvas) {
       document.exitPointerLock();
     }
+
+    // ゲームオーバー時にも動的メッセージを表示
+    const phrase = "ざぁ～こざぁ～こ♡ よわよわのよわ～♡♡";
+    annoyingMessage.innerHTML = `
+      <div class="message-group">
+        <img src="character.png" class="character-img" alt="character">
+        <span class="message-text" style="font-size: ${GAME_OVER_FONT_SIZE}px">${phrase}</span>
+      </div>
+      <div class="restart-group">
+        <button class="restart-hint">RESTART</button>
+      </div>
+    `;
+    annoyingMessage.style.opacity = '1';
+    annoyingMessage.style.transform = `translate(-50%, -50%) scale(1.0)`;
+    // ゲームオーバー時は自動で消さない
   }
 }
 
@@ -175,15 +235,7 @@ function draw() {
   drawBall();
   drawScore();
 
-  if (isGameOver) {
-    ctx.font = '48px "Orbitron", sans-serif';
-    ctx.fillStyle = '#ff4444';
-    ctx.textAlign = 'center';
-    ctx.fillText('GAME OVER', canvas.width / 2, canvas.height / 2);
-    ctx.font = '24px "Orbitron", sans-serif';
-    ctx.fillStyle = '#fff';
-    ctx.fillText('Click to Restart', canvas.width / 2, canvas.height / 2 + 50);
-  }
+  // Canvas上での描画は廃止（HTMLレイヤーに統一）
 }
 
 function loop() {
@@ -219,7 +271,7 @@ canvas.addEventListener('mousemove', (e) => {
   if (paddle.x + paddle.width > canvas.width) paddle.x = canvas.width - paddle.width;
 });
 
-canvas.addEventListener('click', () => {
+window.addEventListener('click', () => {
   if (isGameOver) {
     isGameOver = false;
     score = 0;
@@ -232,10 +284,12 @@ canvas.addEventListener('click', () => {
     currentRotation = 0;
     gameContainer.style.transform = `rotate(0deg)`;
     canvas.style.cursor = 'none';
-  }
+    annoyingMessage.style.opacity = '0'; // メッセージを隠す
 
-  if (!isGameOver && document.pointerLockElement !== canvas) {
-    canvas.requestPointerLock();
+    // 再開時にPointer Lockを要求
+    if (document.pointerLockElement !== canvas) {
+      canvas.requestPointerLock();
+    }
   }
 });
 
