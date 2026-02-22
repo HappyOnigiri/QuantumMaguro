@@ -1,4 +1,5 @@
 import './style.css'
+import characterImg from './assets/character.png'
 
 const canvas = document.getElementById('gameCanvas') as HTMLCanvasElement;
 const ctx = canvas.getContext('2d')!;
@@ -135,7 +136,7 @@ function showAnnoyingMessage() {
   lastPhrase = phrase;
   annoyingMessage.innerHTML = `
     <div class="message-group">
-      <img src="public/character.png" class="character-img" alt="character">
+      <img src="${characterImg}" class="character-img" alt="character">
       <span class="message-text">${phrase}</span>
     </div>
   `;
@@ -250,7 +251,7 @@ function update() {
     const phrase = "ざぁ～こざぁ～こ♡ よわよわのよわ～♡♡";
     annoyingMessage.innerHTML = `
       <div class="message-group">
-        <img src="public/character.png" class="character-img" alt="character">
+        <img src="${characterImg}" class="character-img" alt="character">
         <span class="message-text" style="font-size: ${GAME_OVER_FONT_SIZE}px">${phrase}</span>
       </div>
       <div class="restart-group">
