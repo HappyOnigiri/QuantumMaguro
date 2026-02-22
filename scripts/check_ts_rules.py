@@ -16,10 +16,12 @@ def check_file(path: Path) -> list[str]:
         for i, line in enumerate(content.splitlines(), 1):
             raw_line = line
             if not in_block_comment:
-                if "/*" in line:
+                idx_slash = line.find("//")
+                idx_block = line.find("/*")
+                if idx_block != -1 and (idx_slash == -1 or idx_block < idx_slash):
                     in_block_comment = True
-                    part_before = line.split("/*")[0]
-                    part_after_start = line.split("/*", 1)[1]
+                    part_before = line[:idx_block]
+                    part_after_start = line[idx_block + 2:]
                     if "*/" in part_after_start:
                         in_block_comment = False
                         part_after = part_after_start.split("*/", 1)[1]
