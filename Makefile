@@ -44,7 +44,20 @@ check-ts-rules:
 # 寿司データのチェック
 check-sushi-data:
 	@echo "Checking sushi data in quantum-maguro..."
-	@cd quantum-maguro && node check_scripts/check_sushi_data.mjs
+	@cd quantum-maguro && \
+	scripts=$$(ls check_scripts/*.mjs check_scripts/*.js check_scripts/*.py check_scripts/*.sh 2>/dev/null); \
+	if [ -z "$$scripts" ]; then \
+		echo "No check scripts found in check_scripts/"; \
+	else \
+		for script in $$scripts; do \
+			echo "Running $$script..."; \
+			case "$$script" in \
+				*.py) python3 $$script || exit 1 ;; \
+				*.sh) sh $$script || exit 1 ;; \
+				*) node $$script || exit 1 ;; \
+			esac; \
+		done; \
+	fi
 
 # TS/TSXの静的解析（Biome使用）
 ts-check-diff:

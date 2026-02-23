@@ -4,11 +4,12 @@ import sys
 import concurrent.futures
 import time
 
-def run_task(name, command):
+def run_task(name, command, cwd=None):
     """
     指定されたコマンドを実行し、成功・失敗と出力を返す。
     :param name: タスク名
     :param command: 実行するコマンド（リスト形式）
+    :param cwd: 作業ディレクトリ (任意)
     :return: (is_success, name, output, duration)
     """
     start_time = time.time()
@@ -19,7 +20,8 @@ def run_task(name, command):
             check=True,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
-            text=True
+            text=True,
+            cwd=cwd
         )
         duration = time.time() - start_time
         return True, name, result.stdout, duration
@@ -47,8 +49,8 @@ def execute_phase(phase_name, tasks):
     # 並列数はタスク数に応じて自動調整される
     with concurrent.futures.ThreadPoolExecutor(max_workers=len(tasks)) as executor:
         future_to_name = {
-            executor.submit(run_task, name, cmd): name
-            for name, cmd in tasks
+            executor.submit(run_task, *task): task[0]
+            for task in tasks
         }
 
         for future in concurrent.futures.as_completed(future_to_name):
@@ -87,8 +89,32 @@ def main():
         ("HTML Check", ["make", "html-check-diff"]),
         ("Type Check", ["make", "check-ts"]),
         ("Custom Rules", ["make", "check-ts-rules"]),
-        ("Sushi Data", ["make", "check-sushi-data"]),
     ]
+
+    # アプリ固有のチェックスクリプト (各アプリの check_scripts/ 以下を動的に追加)
+    import glob
+    import os
+    app_check_scripts = glob.glob("*/check_scripts/*.mjs") + \
+                        glob.glob("*/check_scripts/*.js") + \
+                        glob.glob("*/check_scripts/*.py") + \
+                        glob.glob("*/check_scripts/*.sh")
+    for script in app_check_scripts:
+        # ディレクトリ名を取得 (例: quantum-maguro)
+        app_name = script.split('/')[0]
+        script_basename = os.path.basename(script)
+        name = f"{app_name}: {script_basename}"
+
+        # 実行コマンドの決定
+        if script.endswith(".py"):
+            cmd = ["python3", "/".join(script.split('/')[1:])]
+        elif script.endswith(".sh"):
+            cmd = ["sh", "/".join(script.split('/')[1:])]
+        else:
+            cmd = ["node", "/".join(script.split('/')[1:])]
+
+        # 各アプリのディレクトリを作業ディレクトリとして指定する
+        cwd = app_name
+        check_tasks.append((name, cmd, cwd))
 
     if not execute_phase("Check Phase", check_tasks):
         print("Check phase failed.")
