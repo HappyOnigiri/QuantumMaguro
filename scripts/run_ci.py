@@ -33,7 +33,7 @@ def execute_phase(phase_name, tasks):
     """
     タスクのリストを並列実行する。
     :param phase_name: フェーズ名 (ログ用)
-    :param tasks: (name, command) のタプルのリスト
+    :param tasks: (name, command[, cwd]) のタプルのリスト。cwd は任意で、コマンドの作業ディレクトリとして使用されます。
     :return: 成功したかどうか (bool)
     """
     if phase_name:
@@ -95,10 +95,10 @@ def main():
     import glob
     import os
     from pathlib import Path
-    app_check_scripts = glob.glob("*/check_scripts/*.mjs") + \
-                        glob.glob("*/check_scripts/*.js") + \
-                        glob.glob("*/check_scripts/*.py") + \
-                        glob.glob("*/check_scripts/*.sh")
+    app_check_scripts = glob.glob("*/check_scripts/**/*.mjs", recursive=True) + \
+                        glob.glob("*/check_scripts/**/*.js", recursive=True) + \
+                        glob.glob("*/check_scripts/**/*.py", recursive=True) + \
+                        glob.glob("*/check_scripts/**/*.sh", recursive=True)
     for script in app_check_scripts:
         script_path = Path(script)
         # ディレクトリ名を取得 (例: quantum-maguro)
