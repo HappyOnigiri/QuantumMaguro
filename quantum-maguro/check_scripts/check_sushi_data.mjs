@@ -3,7 +3,7 @@ import path from "node:path";
 import { parse } from "yaml";
 
 const SUSHI_YAML_PATH = path.resolve("src/data/sushi.yaml");
-const READING_RE = /^[a-zA-Z0-9-]+$/;
+const READING_RE = /^[a-z-]+$/;
 
 function fail(message) {
 	console.error(message);
