@@ -1,5 +1,8 @@
+import { inject } from "@vercel/analytics";
 import apps from "../../apps.json";
 import "./style.css";
+
+inject();
 
 const appConfig = (apps as Record<string, { version: string } | undefined>)
 	._template;
