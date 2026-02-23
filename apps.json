@@ -7,11 +7,11 @@
     "description_en": "Describe the core gameplay in one line here."
   },
   "mesugaki-pong": {
-    "title": "MESUGAKI Pong",
-    "title_en": "MESUGAKI Pong",
+    "title": "メスガキポンポン",
+    "title_en": "MESUGAKI PONG",
     "version": "1.1.0",
     "description": "メスガキに煽られながらやるカオスなピンポンゲーム。",
-    "description_en": "A chaotic pong game where a cheeky brat taunts you.",
+    "description_en": "A chaotic PONG game where a cheeky brat taunts you.",
     "image": "/thumbnails/mesugaki-pong.png"
   },
   "quantum-maguro": {
