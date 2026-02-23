@@ -276,6 +276,15 @@ p {
   color: rgba(255, 105, 180, 0.4);
 }
 
+.footer-content p {
+  margin: 0;
+  color: inherit;
+  font-size: inherit;
+  text-shadow: none;
+  max-width: none;
+  text-align: center;
+}
+
 .footer-links {
   display: flex;
   align-items: center;
