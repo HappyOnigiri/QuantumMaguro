@@ -15,15 +15,26 @@ function getAppDirectories(rootDir: string) {
 		.map((dirent) => dirent.name);
 }
 
+function getAppsConfig(rootDir: string) {
+	const appsConfigPath = resolve(rootDir, "apps.json");
+	if (fs.existsSync(appsConfigPath)) {
+		return JSON.parse(fs.readFileSync(appsConfigPath, "utf8"));
+	}
+	return {};
+}
+
 function getRollupInputs(rootDir: string) {
 	const dirs = getAppDirectories(rootDir);
+	const appsConfig = getAppsConfig(rootDir);
 	const inputs: Record<string, string> = {
 		main: resolve(rootDir, "index.html"),
 	};
 	for (const dir of dirs) {
 		const indexPath = resolve(rootDir, dir, "index.html");
-		const appConfigPath = resolve(rootDir, dir, "app.json");
-		if (fs.existsSync(indexPath) && fs.existsSync(appConfigPath)) {
+		if (
+			fs.existsSync(indexPath) &&
+			Object.prototype.hasOwnProperty.call(appsConfig, dir)
+		) {
 			inputs[dir] = indexPath;
 		}
 	}
@@ -38,16 +49,19 @@ function generatePortalCardsPlugin(): Plugin {
 
 			const rootDir = __dirname;
 			const dirs = getAppDirectories(rootDir);
+			const appsConfig = getAppsConfig(rootDir);
 
 			const cards: string[] = [];
 
 			for (const dir of dirs) {
 				const indexPath = resolve(rootDir, dir, "index.html");
-				const appConfigPath = resolve(rootDir, dir, "app.json");
 
-				// アプリであることを判定 (index.html と app.json の両方が存在)
-				if (fs.existsSync(indexPath) && fs.existsSync(appConfigPath)) {
-					const appConfig = JSON.parse(fs.readFileSync(appConfigPath, "utf8"));
+				// アプリであることを判定 (index.html と apps.json 内にキーが存在)
+				if (
+					fs.existsSync(indexPath) &&
+					Object.prototype.hasOwnProperty.call(appsConfig, dir)
+				) {
+					const appConfig = appsConfig[dir];
 					const title = appConfig.title || dir;
 					const description = appConfig.description || "";
 					const image = appConfig.image;
