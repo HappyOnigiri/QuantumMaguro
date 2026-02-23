@@ -39,6 +39,8 @@ const MESSAGE_BASE_SCALE = 0.7;
 const MESSAGE_RANDOM_SCALE_RANGE = 0.5;
 const MESSAGE_DISPLAY_DURATION = 1200;
 const GAME_OVER_FONT_SIZE = 60;
+const BALL_INITIAL_SPEED = 7.071; // 5 * sqrt(2) に近い値
+const BALL_SPEED_INCREMENT = 0.2;
 
 const paddle = {
 	width: 100,
@@ -47,13 +49,14 @@ const paddle = {
 	y: canvas.height - 30,
 };
 
+const initialSpeed = BALL_INITIAL_SPEED + score * BALL_SPEED_INCREMENT;
 const ball = {
 	x: canvas.width / 2,
 	y: canvas.height / 2,
 	radius: 10,
-	dx: 5,
-	dy: -5,
-	speed: 7,
+	speed: initialSpeed,
+	dx: initialSpeed / Math.sqrt(2),
+	dy: -initialSpeed / Math.sqrt(2),
 };
 
 let currentRotation = 0;
@@ -193,45 +196,46 @@ function applyCrazyGimmick() {
 	if (score === 30 && !hasRotated30) {
 		hasRotated30 = true;
 		isSpinning = true;
-		gameContainer.style.transition = "transform 1s ease-in-out";
-		currentRotation += 360;
+		gameContainer.style.transition = "transform 0.9s ease-in-out";
+		currentRotation += 720;
 		gameContainer.style.transform = `rotate(${currentRotation}deg)`;
 
 		spinTimeoutId = window.setTimeout(() => {
 			gameContainer.style.transition = "";
-			currentRotation = currentRotation % 360;
-			gameContainer.style.transform = `rotate(${currentRotation}deg)`;
 			isSpinning = false;
 			spinTimeoutId = null;
-		}, 1000);
+		}, 900);
 		return;
 	}
 
+	let targetRotation = 0;
 	if (score <= SCORE_THRESHOLD_ENCOURAGING) {
 		// スコア初期段階（応援モード）
-		currentRotation = 0;
+		targetRotation = 0;
 	} else if (score <= SCORE_THRESHOLD_CHALLENGING) {
 		// スコア中間段階（挑発モード）
-		currentRotation = (Math.random() - 0.5) * 20;
+		targetRotation = (Math.random() - 0.5) * 20;
 	} else if (score < 30) {
 		// スコア後半段階（煽りモード前半）
-		currentRotation = (Math.random() - 0.5) * 90;
+		targetRotation = (Math.random() - 0.5) * 90;
 	} else {
-		// スコア30〜: 左右90度（±90度）
-		currentRotation = (Math.random() - 0.5) * 180;
+		// スコア30〜: 左右75度（±75度） + 二回転分の720度
+		targetRotation = 720 + (Math.random() - 0.5) * 150;
 	}
 
+	currentRotation = targetRotation;
 	gameContainer.style.transform = `rotate(${currentRotation}deg)`;
 }
 
 function resetGame() {
 	isGameOver = false;
 	score = 0;
+	const currentSpeed = BALL_INITIAL_SPEED + score * BALL_SPEED_INCREMENT;
 	ball.x = canvas.width / 2;
 	ball.y = canvas.height / 2;
-	ball.dx = 5;
-	ball.dy = -5;
-	ball.speed = 7;
+	ball.speed = currentSpeed;
+	ball.dx = currentSpeed / Math.sqrt(2);
+	ball.dy = -currentSpeed / Math.sqrt(2);
 	ball.radius = 10;
 	currentRotation = 0;
 	isSpinning = false;
@@ -289,19 +293,20 @@ function update() {
 		if (ball.dy > 0) {
 			ball.dy *= -1;
 
-			// Hit position affects X velocity
+			// 角度を維持したまま、新しいスコアに基づくスピードで速度を更新
+			score++;
+			const currentSpeed = BALL_INITIAL_SPEED + score * BALL_SPEED_INCREMENT;
+			ball.speed = currentSpeed;
+
+			// 打ち返し位置によるDXの変化（既存ロジック）
 			const hitPoint = ball.x - (paddle.x + paddle.width / 2);
-			ball.dx = hitPoint * 0.15;
+			const newDx = hitPoint * 0.15;
 
-			// Speed up slightly
-			ball.speed += 0.2;
-
-			// Normalize velocity
-			const angle = Math.atan2(ball.dy, ball.dx);
+			// 新しい速度ベクトルを計算
+			const angle = Math.atan2(ball.dy, newDx);
 			ball.dx = Math.cos(angle) * ball.speed;
 			ball.dy = Math.sin(angle) * ball.speed;
 
-			score++;
 			applyCrazyGimmick();
 			showAnnoyingMessage(); // パドルで打ち返した時に100%表示
 		}
