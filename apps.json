@@ -4,7 +4,8 @@
     "title_en": "Template App",
     "version": "1.0.0",
     "description": "ここにどんなゲームなのか、ゲームのコアとなる面白さを1行で記載してください。",
-    "description_en": "Describe the core gameplay in one line here."
+    "description_en": "Describe the core gameplay in one line here.",
+    "image": "/thumbnails/template-app.png"
   },
   "mesugaki-pong": {
     "title": "メスガキポンポン",

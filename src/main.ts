@@ -1,6 +1,17 @@
 import { I18nManager, type Resources } from "@shared-ts/i18n";
 import { inject } from "@vercel/analytics";
-import apps from "../apps.json";
+import appsRaw from "../apps.json";
+
+interface AppConfig {
+	title: string;
+	title_en?: string;
+	version: string;
+	description: string;
+	description_en?: string;
+	image?: string;
+}
+
+const apps = appsRaw as Record<string, AppConfig>;
 
 const resources: Resources = {
 	ja: {
@@ -18,9 +29,7 @@ for (const [dir, config] of Object.entries(apps)) {
 	if (dir.startsWith("_") || dir.startsWith(".")) continue;
 	resources.ja[`app.${dir}.title`] = config.title;
 	resources.ja[`app.${dir}.description`] = config.description;
-	// @ts-expect-error config object can have en properties
 	resources.en[`app.${dir}.title`] = config.title_en || config.title;
-	// @ts-expect-error config object can have en properties
 	resources.en[`app.${dir}.description`] =
 		config.description_en || config.description;
 }
