@@ -144,7 +144,7 @@ body {
 }
 
 .card-content {
-  padding: 24px 28px 32px;
+  padding: 24px 28px 16px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -192,6 +192,16 @@ body {
   font-size: 1rem;
   color: var(--text-muted);
   line-height: 1.6;
+}
+
+.card-version {
+  font-family: Orbitron, sans-serif;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  opacity: 0.4;
+  margin-top: auto;
+  align-self: flex-end;
+  letter-spacing: 1px;
 }
 
 .cyber-footer {

@@ -30,6 +30,19 @@ function getAppsConfig(rootDir: string) {
 	}
 }
 
+function getVersionsConfig(rootDir: string) {
+	const versionsPath = resolve(rootDir, ".release-please-manifest.json");
+	if (!fs.existsSync(versionsPath)) {
+		return {};
+	}
+	try {
+		const content = fs.readFileSync(versionsPath, "utf8");
+		return JSON.parse(content);
+	} catch (error) {
+		return {};
+	}
+}
+
 function getRollupInputs(rootDir: string) {
 	const dirs = getAppDirectories(rootDir);
 	const appsConfig = getAppsConfig(rootDir);
@@ -57,6 +70,7 @@ function generatePortalCardsPlugin(): Plugin {
 			const rootDir = __dirname;
 			const dirs = getAppDirectories(rootDir);
 			const appsConfig = getAppsConfig(rootDir);
+			const versions = getVersionsConfig(rootDir);
 
 			const cards: string[] = [];
 
@@ -72,6 +86,7 @@ function generatePortalCardsPlugin(): Plugin {
 					const title = appConfig.title || dir;
 					const description = appConfig.description || "";
 					const image = appConfig.image;
+					const version = versions[dir] || "0.0.0";
 
 					// 画像HTMLの生成
 					const imageHtml = image
@@ -85,6 +100,7 @@ function generatePortalCardsPlugin(): Plugin {
       <div class="card-content">
         <h2 data-i18n="app.${dir}.title">${title}</h2>
         <p data-i18n="app.${dir}.description">${description}</p>
+        <span class="card-version">v${version}</span>
       </div>
     </a>`;
 					cards.push(cardHtml);
