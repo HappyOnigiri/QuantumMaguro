@@ -19,6 +19,9 @@ import { TAISHO_LINES } from "./data/taisho";
 import { generateVariants } from "./romaji";
 import type { ActiveSushi, RankDef, SushiDef } from "./types";
 
+const QUANTUM_MAGURO_URL =
+	"https://onigiri-game-portal.vercel.app/quantum-maguro/";
+
 const resources: Resources = {
 	ja: {
 		back_to_portal_html: '<span class="back-icon">←</span> BACK TO PORTAL',
@@ -849,7 +852,7 @@ function getShareText(): string {
 	const rankName = rank.name[lang] || rank.name.en;
 	const currentComment = selectedTaishoComment;
 	const hashtag = i18n.t("qm.hashtag");
-	const url = "https://onigiri-game-portal.vercel.app/quantum-maguro/";
+	const url = QUANTUM_MAGURO_URL;
 
 	if (lang === "ja") {
 		return `🍣 タイピング回転寿司 量子マグロ亭
@@ -904,7 +907,7 @@ topBtn.addEventListener("click", () => {
 
 shareBtn.addEventListener("click", () => {
 	const text = getShareText();
-	const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+	const url = `https://x.com/intent/tweet?text=${encodeURIComponent(text)}`;
 	window.open(url, "_blank", "noopener,noreferrer");
 });
 
