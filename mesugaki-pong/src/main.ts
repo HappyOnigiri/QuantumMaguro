@@ -182,7 +182,7 @@ const resources: Resources = {
 			"If you beg, I might give you a rematch. ...Just kidding! ♡ The result will be the same! ahaha~",
 		game_over: "Loser~ Loser~ ♡ So weak, so weak, sooo weak~ ♡♡",
 		"mp.guidelines": "▶ Streaming & Monetization OK",
-		"share.preview_label": "▼ Auto-generated Tweet ▼",
+		"share.preview_label": "▼ Auto-generated Post ▼",
 		"share.tweet_template_0":
 			"...Huh, [Score: {score}]? ♡ Onii-san, did you even know how to play? ♡ Aww, you move the paddle, okay~? Are you a baby? ♡ lmao",
 		"share.tweet_template_1":
