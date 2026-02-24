@@ -18,6 +18,9 @@ if (!appVersionString) {
 import { I18nManager, type Resources } from "@shared-ts/i18n";
 import characterImg from "./assets/character.png";
 
+const MESUGAKI_PONG_URL =
+	"https://onigiri-game-portal.vercel.app/mesugaki-pong/";
+
 const resources: Resources = {
 	ja: {
 		back_to_portal_html: '<span class="back-icon">←</span> BACK TO PORTAL',
@@ -206,6 +209,33 @@ const resources: Resources = {
 };
 
 const i18n = new I18nManager(resources);
+
+function getShareText(currentScore: number): string {
+	let templateKey = "share.tweet_template_0";
+	if (currentScore >= 100) {
+		templateKey = "share.tweet_template_100";
+	} else if (currentScore >= 90) {
+		templateKey = "share.tweet_template_90";
+	} else if (currentScore >= 75) {
+		templateKey = "share.tweet_template_75";
+	} else if (currentScore >= 60) {
+		templateKey = "share.tweet_template_60";
+	} else if (currentScore >= 45) {
+		templateKey = "share.tweet_template_45";
+	} else if (currentScore >= 30) {
+		templateKey = "share.tweet_template_30";
+	} else if (currentScore >= 20) {
+		templateKey = "share.tweet_template_20";
+	} else if (currentScore >= 10) {
+		templateKey = "share.tweet_template_10";
+	} else if (currentScore >= 1) {
+		templateKey = "share.tweet_template_1";
+	}
+	const template = i18n.t(templateKey);
+	const hashtag = i18n.t("share.hashtag");
+	return `${template.replace("{score}", currentScore.toString())}\n\n${MESUGAKI_PONG_URL}\n\n${hashtag}`;
+}
+
 i18n.updatePage();
 i18n.setupLanguageButtons();
 
@@ -541,31 +571,7 @@ function update() {
 
 		const restartGroup = document.createElement("div");
 		restartGroup.className = "restart-group";
-		// ツイート文の生成
-		let templateKey = "share.tweet_template_0";
-		if (score >= 100) {
-			templateKey = "share.tweet_template_100";
-		} else if (score >= 90) {
-			templateKey = "share.tweet_template_90";
-		} else if (score >= 75) {
-			templateKey = "share.tweet_template_75";
-		} else if (score >= 60) {
-			templateKey = "share.tweet_template_60";
-		} else if (score >= 45) {
-			templateKey = "share.tweet_template_45";
-		} else if (score >= 30) {
-			templateKey = "share.tweet_template_30";
-		} else if (score >= 20) {
-			templateKey = "share.tweet_template_20";
-		} else if (score >= 10) {
-			templateKey = "share.tweet_template_10";
-		} else if (score >= 1) {
-			templateKey = "share.tweet_template_1";
-		}
-		const template = i18n.t(templateKey);
-		const gameUrl = "https://onigiri-game-portal.vercel.app/mesugaki-pong/";
-		const hashtag = i18n.t("share.hashtag");
-		const tweetText = `${template.replace("{score}", score.toString())}\n\n${gameUrl}\n\n${hashtag}`;
+		// ツイート文の生成は getShareText(score) で行うため、ここでは不要
 
 		// プレビューUIの生成
 		const previewDiv = document.createElement("div");
@@ -575,9 +581,22 @@ function update() {
 		previewLabel.textContent = i18n.t("share.preview_label");
 		const previewText = document.createElement("div");
 		previewText.className = "preview-text";
-		previewText.textContent = tweetText;
+		previewText.textContent = getShareText(score);
 		previewDiv.appendChild(previewLabel);
 		previewDiv.appendChild(previewText);
+
+		// 言語切り替え時にプレビューを更新
+		const langBtns = document.querySelectorAll("[data-lang-btn]");
+		for (const btn of langBtns) {
+			btn.addEventListener("click", () => {
+				if (isGameOver) {
+					previewText.textContent = getShareText(score);
+					shareBtn.textContent = i18n.t("share.btn");
+					previewLabel.textContent = i18n.t("share.preview_label");
+					restartBtn.textContent = i18n.t("mp.restart");
+				}
+			});
+		}
 
 		// シェアボタンの生成
 		const shareBtn = document.createElement("button");
@@ -585,8 +604,13 @@ function update() {
 		shareBtn.textContent = i18n.t("share.btn");
 		shareBtn.addEventListener("click", (e) => {
 			e.stopPropagation();
-			const encodedText = encodeURIComponent(tweetText);
-			window.open(`https://x.com/intent/tweet?text=${encodedText}`, "_blank");
+			const text = getShareText(score);
+			const encodedText = encodeURIComponent(text);
+			window.open(
+				`https://x.com/intent/tweet?text=${encodedText}`,
+				"_blank",
+				"noopener,noreferrer",
+			);
 		});
 		restartGroup.appendChild(shareBtn);
 
