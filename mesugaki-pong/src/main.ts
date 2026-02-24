@@ -87,25 +87,26 @@ const resources: Resources = {
 		"mp.guidelines": "▶ 配信・収益化OK",
 		"share.preview_label": "▼ 勝手に生成された投稿文 ▼",
 		"share.tweet_template_0":
-			"……え、【スコア: {score}】って何？♡ おにーさんもしかしてゲームの遊び方わかんなかった？♡ よちよち、おてて動かすんだよ～？赤ちゃんかな？♡ｗｗｗ\n\n#メスガキポンポン\n",
+			"……え、【スコア: {score}】って何？♡ おにーさんもしかしてゲームの遊び方わかんなかった？♡ よちよち、おてて動かすんだよ～？赤ちゃんかな？♡ｗｗｗ",
 		"share.tweet_template_1":
-			"【スコア: {score}】ってｗｗｗ やる気あるのそれ？♡ あたしあくびしながらやってたんだけどな～♡ おにーさん存在がざぁ〜こ♡\n\n#メスガキポンポン\n",
+			"【スコア: {score}】ってｗｗｗ やる気あるのそれ？♡ あたしあくびしながらやってたんだけどな～♡ おにーさん存在がざぁ〜こ♡",
 		"share.tweet_template_10":
-			"うちのざぁ〜こ♡おにーさん、たったの【スコア: {score}】で負けちゃったんですけど〜ｗｗｗ おにーさんって何やってもダメダメじゃ～ん♡\n\n#メスガキポンポン\n",
+			"うちのざぁ〜こ♡おにーさん、たったの【スコア: {score}】で負けちゃったんですけど〜ｗｗｗ おにーさんって何やってもダメダメじゃ～ん♡",
 		"share.tweet_template_20":
-			"【スコア: {score}】かぁ♡ ちょっとだけ頑張ったね？えらいえらい♡ ……で？♡ それで満足なの？♡ おにーさんの限界ひっく～ｗｗｗ\n\n#メスガキポンポン\n",
+			"【スコア: {score}】かぁ♡ ちょっとだけ頑張ったね？えらいえらい♡ ……で？♡ それで満足なの？♡ おにーさんの限界ひっく～ｗｗｗ",
 		"share.tweet_template_30":
-			"へぇ〜【スコア: {score}】まで来れたんだ？♡ やっとゲームのルール覚えたのかな～？♡ でもまだまだぜんっぜん足りないよ？ 本気出してこれとか泣いちゃうんだけど♡ｗ\n\n#メスガキポンポン\n",
+			"へぇ〜【スコア: {score}】まで来れたんだ？♡ やっとゲームのルール覚えたのかな～？♡ でもまだまだぜんっぜん足りないよ？ 本気出してこれとか泣いちゃうんだけど♡ｗ",
 		"share.tweet_template_45":
-			"【スコア: {score}】……ふぅん？♡ ちょっとだけ見直したかも♡ ……って言ったら嬉しい？♡ 残念、まだあたしの相手には程遠いですけど〜♡ｗ\n\n#メスガキポンポン\n",
+			"【スコア: {score}】……ふぅん？♡ ちょっとだけ見直したかも♡ ……って言ったら嬉しい？♡ 残念、まだあたしの相手には程遠いですけど〜♡ｗ",
 		"share.tweet_template_60":
-			"【スコア: {score}】……っ！ へ、へぇ〜……♡ まあまあやるじゃん……♡ べっ別に焦ってなんかないし！！ おにーさんがちょっと粘っただけでしょ……♡\n\n#メスガキポンポン\n",
+			"【スコア: {score}】……っ！ へ,へぇ〜……♡ まあまあやるじゃん……♡ べっ別に焦ってなんかないし！！ おにーさんがちょっと粘っただけでしょ……♡",
 		"share.tweet_template_75":
-			"【スコア: {score}】って……な、なんで……？ おにーさんこんなに強かった……？ ……っ！ べべべ別にあたし手抜いてただけだし！！ 次は絶対……っ！💢\n\n#メスガキポンポン\n",
+			"【スコア: {score}】って……な、なんで……？ おにーさんこんなに強かった……？ ……っ！ べべべ別にあたし手抜いてただけだし！！ 次は絶対……っ！💢",
 		"share.tweet_template_90":
-			"【スコア: {score}】…………うそ……あたしが……こんなざこに……追い詰められて……？ ………っ〜〜〜！！！ や、やめてよ……そんな目で見ないでよぉ……っ💦\n\n#メスガキポンポン\n",
+			"【スコア: {score}】…………うそ……あたしが……こんなざこに……追い詰められて……？ ………っ〜〜〜！！！ や、やめてよ……そんな目で見ないでよぉ……っ💦",
 		"share.tweet_template_100":
-			"【スコア: {score}】…………。 ……あたしの、負け……です……。 ごめんなさい、おにーさんのこと……ざこって言って……ごめんなさいっ……。 あたしが……ざこでした……♡♡♡\n\n#メスガキポンポン\n",
+			"【スコア: {score}】…………。 ……あたしの、負け……です……。 ごめんなさい、おにーさんのこと……ざこって言って……ごめんなさいっ……。 あたしが……ざこでした……♡♡♡",
+		"share.hashtag": "#メスガキポンポン",
 		"share.btn": "𝕏のフォロワーに泣きつく😭",
 	},
 	en: {
@@ -180,25 +181,26 @@ const resources: Resources = {
 		"mp.guidelines": "▶ Streaming & Monetization OK",
 		"share.preview_label": "▼ Auto-generated Tweet ▼",
 		"share.tweet_template_0":
-			"...Huh, [Score: {score}]? ♡ Onii-san, did you even know how to play? ♡ Aww, you move the paddle, okay~? Are you a baby? ♡ lmao\n\n#MesugakiPong\n",
+			"...Huh, [Score: {score}]? ♡ Onii-san, did you even know how to play? ♡ Aww, you move the paddle, okay~? Are you a baby? ♡ lmao",
 		"share.tweet_template_1":
-			"[Score: {score}]??? lmao Were you even trying? ♡ I was yawning the whole time and still crushed you! ♡ Your entire existence is weak~ ♡\n\n#MesugakiPong\n",
+			"[Score: {score}]??? lmao Were you even trying? ♡ I was yawning the whole time and still crushed you! ♡ Your entire existence is weak~ ♡",
 		"share.tweet_template_10":
-			"My poor little loser ♡ Onii-san only got [Score: {score}] before losing~ lmao You're hopeless at everything, aren't you~ ♡\n\n#MesugakiPong\n",
+			"My poor little loser ♡ Onii-san only got [Score: {score}] before losing~ lmao You're hopeless at everything, aren't you~ ♡",
 		"share.tweet_template_20":
-			"[Score: {score}]~ ♡ Aww, you tried a little! Good boy, good boy~ ♡ ...So? ♡ That's it? ♡ Your limit is sooo low it's hilarious lmao\n\n#MesugakiPong\n",
+			"[Score: {score}]~ ♡ Aww, you tried a little! Good boy, good boy~ ♡ ...So? ♡ That's it? ♡ Your limit is sooo low it's hilarious lmao",
 		"share.tweet_template_30":
-			"Ohhh~ [Score: {score}]? ♡ You finally learned how the game works? ♡ But that's still noooowhere near enough~ ♡ THIS is your full power? I'm gonna cry laughing lmao\n\n#MesugakiPong\n",
+			"Ohhh~ [Score: {score}]? ♡ You finally learned how the game works? ♡ But that's still noooowhere near enough~ ♡ THIS is your full power? I'm gonna cry laughing lmao",
 		"share.tweet_template_45":
-			"[Score: {score}]... Hmm? ♡ Maybe I'm a tiny bit impressed~ ♡ ...Did that make you happy? ♡ Too bad, you're still light-years from beating me~ ♡ lol\n\n#MesugakiPong\n",
+			"[Score: {score}]... Hmm? ♡ Maybe I'm a tiny bit impressed~ ♡ ...Did that make you happy? ♡ Too bad, you're still light-years from beating me~ ♡ lol",
 		"share.tweet_template_60":
-			"[Score: {score}]...! H-Heh~ ♡ Not bad, I guess...♡ I-I'm NOT nervous, okay?! You just got lucky and lasted a bit longer, that's all...! ♡\n\n#MesugakiPong\n",
+			"[Score: {score}]...! H-Heh~ ♡ Not bad, I guess...♡ I-I'm NOT nervous, okay?! You just got lucky and lasted a bit longer, that's all...! ♡",
 		"share.tweet_template_75":
-			"[Score: {score}]?! ...H-How...? Since when were you this strong...? ...!! I-I was just going easy on you, okay?! Next time I'll definitely...! 💢\n\n#MesugakiPong\n",
+			"[Score: {score}]?! ...H-How...? Since when were you this strong...? ...!! I-I was just going easy on you, okay?! Next time I'll definitely...! 💢",
 		"share.tweet_template_90":
-			"[Score: {score}]...... No way... I'm being... cornered... by someone like you...? ...~~~!!! S-Stop... don't look at me like that... please...💦\n\n#MesugakiPong\n",
+			"[Score: {score}]...... No way... I'm being... cornered... by someone like you...? ...~~~!!! S-Stop... don't look at me like that... please...💦",
 		"share.tweet_template_100":
-			"[Score: {score}]...... I... I lost... I'm sorry... for calling you weak... I'm sorry... I was the weak one all along... ♡♡♡\n\n#MesugakiPong\n",
+			"[Score: {score}]...... I... I lost... I'm sorry... for calling you weak... I'm sorry... I was the weak one all along... ♡♡♡",
+		"share.hashtag": "#MesugakiPong",
 		"share.btn": "Cry to 𝕏 followers😭",
 	},
 };
@@ -561,7 +563,9 @@ function update() {
 			templateKey = "share.tweet_template_1";
 		}
 		const template = i18n.t(templateKey);
-		const tweetText = template.replace("{score}", score.toString());
+		const gameUrl = "https://onigiri-game-portal.vercel.app/mesugaki-pong/";
+		const hashtag = i18n.t("share.hashtag");
+		const tweetText = `${template.replace("{score}", score.toString())}\n\n${gameUrl}\n\n${hashtag}`;
 
 		// プレビューUIの生成
 		const previewDiv = document.createElement("div");
@@ -582,11 +586,7 @@ function update() {
 		shareBtn.addEventListener("click", (e) => {
 			e.stopPropagation();
 			const encodedText = encodeURIComponent(tweetText);
-			const url = encodeURIComponent(window.location.href);
-			window.open(
-				`https://x.com/intent/tweet?text=${encodedText}&url=${url}`,
-				"_blank",
-			);
+			window.open(`https://x.com/intent/tweet?text=${encodedText}`, "_blank");
 		});
 		restartGroup.appendChild(shareBtn);
 
