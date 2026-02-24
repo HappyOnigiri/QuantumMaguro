@@ -20,13 +20,13 @@ Fun games you can play in your browser!
 
 **A chaotic ping pong game where a cheeky brat taunts you.**
 
-<img src=".github/images/mesugaki-pong-en.jpg">
+<img src=".github/images/mesugaki-pong-en.jpg" alt="Screenshot of Mesugaki Pong game UI">
 
 ### 2. Quantum Maguro
 
 **An exhilarating typing game themed after conveyor belt sushi! Aim for high scores by typing the sushi names in Romaji.**
 
-<img src=".github/images/quantum-maguro-en.jpg">
+<img src=".github/images/quantum-maguro-en.jpg" alt="Screenshot of Quantum Maguro game UI">
 
 ## Tech Stack
 

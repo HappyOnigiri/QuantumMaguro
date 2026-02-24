@@ -20,13 +20,13 @@ _Read this in [English](README.en.md)._
 
 **メスガキに煽られながらやるカオスなピンポンゲーム。**
 
-<img src=".github/images/mesugaki-pong.jpg">
+<img src=".github/images/mesugaki-pong.jpg" alt="メスガキポンポンのゲーム画面">
 
 ### 2. 量子マグロ亭 (Quantum Maguro)
 
 **回転寿司がテーマの爽快タイピングゲーム！流れてくる寿司ネタをローマ字入力して高得点を目指そう。**
 
-<img src=".github/images/quantum-maguro.jpg">
+<img src=".github/images/quantum-maguro.jpg" alt="量子マグロ亭のゲーム画面">
 
 ## Tech Stack
 
@@ -65,7 +65,7 @@ npm run dev
 
 配信用のガイドラインや素材のご確認は以下からお願いします：
 
-**[配信ガイドライン (URLプレースホルダー)](https://onigiri-game-portal.vercel.app/guidelines.html)**
+**[配信ガイドライン](https://onigiri-game-portal.vercel.app/guidelines.html)**
 
 ---
 
