@@ -263,7 +263,7 @@ p {
   line-height: 1.4;
   white-space: pre-wrap;
   text-align: left;
-  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 
