@@ -452,6 +452,12 @@ function applyCrazyGimmick() {
 let langListenerController: AbortController | null = null;
 
 function resetGame() {
+	// 言語リスナーを解除
+	if (langListenerController) {
+		langListenerController.abort();
+		langListenerController = null;
+	}
+
 	isGameOver = false;
 	score = 0;
 	const currentSpeed = BALL_INITIAL_SPEED + score * BALL_SPEED_INCREMENT;
@@ -467,12 +473,6 @@ function resetGame() {
 	if (spinTimeoutId) {
 		window.clearTimeout(spinTimeoutId);
 		spinTimeoutId = null;
-	}
-
-	// 言語リスナーを解除
-	if (langListenerController) {
-		langListenerController.abort();
-		langListenerController = null;
 	}
 
 	gameContainer.style.transition = "";
