@@ -52,11 +52,11 @@ reviews:
       enabled: false
     pylint:
       enabled: false
-    dotenv-linter:
+    dotenvLint:
       enabled: false
     htmlhint:
       enabled: false
-    osv-scanner:
+    osvScanner:
       enabled: false
     swiftlint:
       enabled: false
