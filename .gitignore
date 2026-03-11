@@ -329,3 +329,6 @@ $RECYCLE.BIN/
 tmp
 out
 *.local.*
+
+# Ruler backup files
+*.bak

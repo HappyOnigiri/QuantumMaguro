@@ -1,4 +1,4 @@
-.PHONY: ci ci-check ts-check-diff ts-fix-diff html-check-diff html-fix-diff check-ts watch-ui build-ui repomix check-ts-rules sync-agent
+.PHONY: ci ci-check ts-check-diff ts-fix-diff html-check-diff html-fix-diff check-ts watch-ui build-ui repomix check-ts-rules sync-agent sync-ruler
 
 # =============================================================================
 # Any Products Makefile
@@ -15,6 +15,7 @@ ci-check:
 	$(MAKE) check-ts
 	$(MAKE) check-ts-rules
 	$(MAKE) check-sushi-data
+	$(MAKE) check-ruler-diff
 
 # ポータルのビルド
 build-ui:
@@ -159,3 +160,16 @@ sync-agent:
 	@mkdir -p .agent
 	rsync -av --delete .cursor/ .agent/
 	@echo ".cursor files have been synchronized to .agent."
+
+# rulerの適用
+sync-ruler:
+	npx --yes @intellectronica/ruler apply
+
+# 生成されたルールのコミット漏れチェック
+check-ruler-diff: sync-ruler
+	@echo "Checking uncommitted ruler changes..."
+	@if [ -n "$$(git status --porcelain AGENTS.md .agent/rules/ .cursor/rules/ | grep -E '^(\?\?| [MADRCU])' 2>/dev/null)" ]; then \
+		echo "❌ Error: Uncommitted ruler generation detected. Please commit the changes."; \
+		git status --porcelain AGENTS.md .agent/rules/ .cursor/rules/; \
+		exit 1; \
+	fi

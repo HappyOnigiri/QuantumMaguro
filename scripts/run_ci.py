@@ -78,6 +78,7 @@ def main():
     fix_tasks = [
         ("TS Fix", ["make", "ts-fix-diff"]),
         ("HTML Fix", ["make", "html-fix-diff"]),
+        ("Ruler Apply", ["make", "sync-ruler"]),
     ]
 
     # fix phase はエラーなしで続行
@@ -89,6 +90,7 @@ def main():
         ("HTML Check", ["make", "html-check-diff"]),
         ("Type Check", ["make", "check-ts"]),
         ("Custom Rules", ["make", "check-ts-rules"]),
+        ("Ruler Diff Check", ["make", "check-ruler-diff"]),
     ]
 
     # アプリ固有のチェックスクリプト (各アプリの check_scripts/ 以下を動的に追加)
