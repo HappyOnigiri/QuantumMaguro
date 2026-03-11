@@ -157,7 +157,7 @@ repomix: repomix-apps
 
 # rulerの適用
 sync-ruler:
-	@# 生成済みのAGENTS.mdがRulerによって再度Sourceとして読み込まれるのを防ぐために一度削除
+	@# 生成済みのAGENTS.mdがRulerによって再度Sourceとして読み込まれるのを防ぐために削除
 	@rm -f AGENTS.md
 	npx --yes @intellectronica/ruler apply
 	@# Sourceマーカーの削除（AIエージェントのコンテキスト節約のため）
@@ -166,8 +166,8 @@ sync-ruler:
 # 生成されたルールのコミット漏れチェック
 check-ruler-diff: sync-ruler
 	@echo "Checking uncommitted ruler changes..."
-	@if [ -n "$$(git status --porcelain AGENTS.md CLAUDE.md .agent/rules/ruler.md .cursor/rules/ | grep -E '^(\?\?| [MADRCU])' 2>/dev/null)" ]; then \
+	@if [ -n "$$(git status --porcelain AGENTS.md .cursor/rules/ | grep -E '^(\?\?| [MADRCU])' 2>/dev/null)" ]; then \
 		echo "❌ Error: Uncommitted ruler generation detected. Please commit the changes."; \
-		git status --porcelain AGENTS.md CLAUDE.md .agent/rules/ruler.md .cursor/rules/; \
+		git status --porcelain AGENTS.md .cursor/rules/; \
 		exit 1; \
 	fi
