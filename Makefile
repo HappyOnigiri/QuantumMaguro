@@ -157,7 +157,11 @@ repomix: repomix-apps
 
 # rulerの適用
 sync-ruler:
+	@# 生成済みのAGENTS.mdがRulerによって再度Sourceとして読み込まれるのを防ぐために一度削除
+	@rm -f AGENTS.md
 	npx --yes @intellectronica/ruler apply
+	@# Sourceマーカーの削除（AIエージェントのコンテキスト節約のため）
+	@perl -ni -e 'print unless /Source: \.ruler\//' AGENTS.md
 
 # 生成されたルールのコミット漏れチェック
 check-ruler-diff: sync-ruler
