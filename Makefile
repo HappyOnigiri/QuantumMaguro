@@ -1,5 +1,4 @@
-.PHONY: ci ci-check ts-check-diff ts-fix-diff html-check-diff html-fix-diff check-ts watch-ui build-ui repomix check-ts-rules sync-ruler check-ruler-diff
-
+.PHONY: ci ci-check ts-check-diff ts-fix-diff html-check-diff html-fix-diff check-ts watch-ui build-ui repomix check-ts-rules sync-ruler
 # =============================================================================
 # Any Products Makefile
 # =============================================================================
@@ -15,7 +14,6 @@ ci-check:
 	$(MAKE) check-ts
 	$(MAKE) check-ts-rules
 	$(MAKE) check-sushi-data
-	$(MAKE) check-ruler-diff
 
 # ポータルのビルド
 build-ui:
@@ -157,17 +155,4 @@ repomix: repomix-apps
 
 # rulerの適用
 sync-ruler:
-	@# 生成済みのAGENTS.mdがRulerによって再度Sourceとして読み込まれるのを防ぐために削除
-	@rm -f AGENTS.md
-	npx --yes @intellectronica/ruler apply
-	@# Sourceマーカーの削除（AIエージェントのコンテキスト節約のため）
-	@perl -ni -e 'print unless /Source: \.ruler\//' AGENTS.md
-
-# 生成されたルールのコミット漏れチェック
-check-ruler-diff: sync-ruler
-	@echo "Checking uncommitted ruler changes..."
-	@if [ -n "$$(git status --porcelain AGENTS.md .cursor/rules/ | grep -E '^(\?\?| [MADRCU])' 2>/dev/null)" ]; then \
-		echo "❌ Error: Uncommitted ruler generation detected. Please commit the changes."; \
-		git status --porcelain AGENTS.md .cursor/rules/; \
-		exit 1; \
-	fi
+	python3 scripts/sync_ruler.py

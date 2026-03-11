@@ -21,4 +21,4 @@ output_path = "AGENTS.md"
 enabled = true
 
 [gitignore]
-enabled = false
+enabled = true

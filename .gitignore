@@ -332,3 +332,9 @@ out
 
 # Ruler backup files
 *.bak
+
+
+# START Ruler Generated Files
+/AGENTS.md
+/AGENTS.md.bak
+# END Ruler Generated Files
