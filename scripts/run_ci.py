@@ -91,35 +91,31 @@ def main():
         ("Custom Rules", ["make", "check-ts-rules"]),
     ]
 
-    # アプリ固有のチェックスクリプト (各アプリの check_scripts/ 以下を動的に追加)
+    # ルートの check_scripts/ 以下を動的にスキャン
     import glob
-    import os
     from pathlib import Path
-    app_check_scripts = glob.glob("*/check_scripts/**/*.mjs", recursive=True) + \
-                        glob.glob("*/check_scripts/**/*.js", recursive=True) + \
-                        glob.glob("*/check_scripts/**/*.py", recursive=True) + \
-                        glob.glob("*/check_scripts/**/*.sh", recursive=True)
-    for script in app_check_scripts:
+    root_check_scripts = (
+        glob.glob("check_scripts/**/*.mjs", recursive=True)
+        + glob.glob("check_scripts/**/*.js", recursive=True)
+        + glob.glob("check_scripts/**/*.py", recursive=True)
+        + glob.glob("check_scripts/**/*.sh", recursive=True)
+    )
+    for script in root_check_scripts:
         script_path = Path(script)
-        # ディレクトリ名を取得 (例: quantum-maguro)
-        app_name = script_path.parts[0]
         script_basename = script_path.name
-        name = f"{app_name}: {script_basename}"
-
-        # アプリディレクトリからの相対パスを取得
-        rel_path = str(script_path.relative_to(app_name))
+        name = f"check_scripts: {script_basename}"
 
         # 実行コマンドの決定
         if script.endswith(".py"):
-            cmd = ["python3", rel_path]
+            cmd = ["python3", script]
         elif script.endswith(".sh"):
-            cmd = ["sh", rel_path]
+            cmd = ["sh", script]
         else:
-            cmd = ["node", rel_path]
+            cmd = ["node", script]
 
-        # 各アプリのディレクトリを作業ディレクトリとして指定する
-        cwd = app_name
-        check_tasks.append((name, cmd, cwd))
+        # ルートディレクトリから実行する
+        check_tasks.append((name, cmd))
+
 
     if not execute_phase("Check Phase", check_tasks):
         print("Check phase failed.")

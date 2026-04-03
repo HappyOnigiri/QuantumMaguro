@@ -1,9 +1,9 @@
 {
-  "name": "any-products-root",
+  "name": "quantum-maguro",
   "private": true,
   "version": "1.5.0",
   "license": "MIT",
-  "description": "Root package to manage multiple applications",
+  "description": "Quantum Maguro - A conveyor belt sushi typing game",
   "scripts": {
     "dev": "vite",
     "build": "vite build"

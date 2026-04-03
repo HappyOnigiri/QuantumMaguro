@@ -1,28 +1,22 @@
-# 🍙 ONIGIRI GAME PORTAL
+# 🍣 量子マグロ亭 (Quantum Maguro)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 _Read this in [English](README.en.md)._
 
-ブラウザで遊べる楽しいゲームです！
+ブラウザで遊べる回転寿司タイピングゲームです！
 
 ---
 
 ## 🚀 今すぐプレイ
 
-[https://onigiri-game-portal.vercel.app/](https://onigiri-game-portal.vercel.app/)
+[https://onigiri-game-portal.vercel.app/quantum-maguro/](https://onigiri-game-portal.vercel.app/quantum-maguro/)
 
 ---
 
-## 収録ゲーム
+## ゲーム紹介
 
-### 1. メスガキポンポン (Mesugaki Pong)
-
-**メスガキに煽られながらやるカオスなピンポンゲーム。**
-
-<img src=".github/images/mesugaki-pong.jpg" alt="メスガキポンポンのゲーム画面">
-
-### 2. 量子マグロ亭 (Quantum Maguro)
+### 量子マグロ亭 (Quantum Maguro)
 
 **回転寿司がテーマの爽快タイピングゲーム！流れてくる寿司ネタをローマ字入力して高得点を目指そう。**
 
@@ -43,10 +37,10 @@ _Read this in [English](README.en.md)._
 
 ```bash
 # リポジトリをクローン
-git clone git@github.com:HappyOnigiri/GamePortal
+git clone git@github.com:HappyOnigiri/QuantumMaguro
 
 # プロジェクトディレクトリへ移動
-cd GamePortal
+cd QuantumMaguro
 
 # 依存関係をインストール
 npm install
@@ -62,10 +56,6 @@ npm run dev
 **実況・動画配信・収益化は完全に許可されています！**
 
 すべての配信者やVTuberの皆様のプレイを歓迎します。事前の許可は必要ありません。
-
-配信用のガイドラインや素材のご確認は以下からお願いします：
-
-**[配信ガイドライン](https://onigiri-game-portal.vercel.app/guidelines.html)**
 
 ---
 

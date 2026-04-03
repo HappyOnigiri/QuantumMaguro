@@ -1,28 +1,22 @@
-# 🍙 ONIGIRI GAME PORTAL
+# 🍣 Quantum Maguro
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 _Read this in [Japanese](README.md)._
 
-Fun games you can play in your browser!
+A conveyor belt sushi typing game you can play in your browser!
 
 ---
 
 ## 🚀 Play Now
 
-[https://onigiri-game-portal.vercel.app/](https://onigiri-game-portal.vercel.app/)
+[https://onigiri-game-portal.vercel.app/quantum-maguro/](https://onigiri-game-portal.vercel.app/quantum-maguro/)
 
 ---
 
-## Included Games
+## About the Game
 
-### 1. MESUGAKI PONG
-
-**A chaotic ping pong game where a cheeky brat taunts you.**
-
-<img src=".github/images/mesugaki-pong-en.jpg" alt="Screenshot of Mesugaki Pong game UI">
-
-### 2. Quantum Maguro
+### Quantum Maguro
 
 **An exhilarating typing game themed after conveyor belt sushi! Aim for high scores by typing the sushi names in Romaji.**
 
@@ -43,10 +37,10 @@ Steps to run the project locally:
 
 ```bash
 # Clone the repository
-git clone git@github.com:HappyOnigiri/GamePortal
+git clone git@github.com:HappyOnigiri/QuantumMaguro
 
 # Navigate to the project directory
-cd GamePortal
+cd QuantumMaguro
 
 # Install dependencies
 npm install
@@ -61,11 +55,7 @@ npm run dev
 
 **Streaming, video content, and monetization are 100% permitted!**
 
-We welcome all streamers and VTubers to play our games. No prior permission is required.
-
-Please check the following for streaming guidelines and assets:
-
-**[Streaming Guidelines](https://onigiri-game-portal.vercel.app/guidelines.html)**
+We welcome all streamers and VTubers to play our game. No prior permission is required.
 
 ---
 
