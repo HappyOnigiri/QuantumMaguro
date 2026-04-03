@@ -425,7 +425,7 @@ function handleKeyInput(char: string, isDebugAutoMatch = false) {
 
 			if (isDebugAutoMatch || (idx < pattern.length && char === pattern[idx])) {
 				anyMatch = true;
-				sushi.matchIndices[p] = isDebugAutoMatch ? idx + 1 : idx + 1;
+				sushi.matchIndices[p] = idx + 1;
 
 				if (sushi.matchIndices[p] === pattern.length) {
 					sushi.captured = true;
@@ -433,7 +433,15 @@ function handleKeyInput(char: string, isDebugAutoMatch = false) {
 					capturedThisTick.push(sushi);
 					break;
 				}
+			} else if (idx > 0) {
+				// Mismatched input after a partial match: reset this pattern's progress
+				sushi.matchIndices[p] = -1;
 			}
+		}
+
+		// If all patterns were reset, allow fresh matching from the start
+		if (!sushi.captured && sushi.matchIndices.every((idx) => idx < 0)) {
+			sushi.matchIndices.fill(0);
 		}
 
 		if (!sushi.captured) {
