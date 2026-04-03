@@ -121,7 +121,7 @@ let lastKeyTime = 0;
 let animFrameId = 0;
 let gameTimerId = 0;
 let currentTaishoEmoji = "🧑🏻‍🍳";
-let selectedTaishoComment = "";
+let selectedTaishoIndex = 0;
 let countdownIntervalId = 0;
 
 // DOM helper
@@ -814,9 +814,8 @@ function showResult() {
 	const rank = getRank(score);
 	const lang = i18n.getLanguage() as "ja" | "en";
 	const taishoLines = rank.taisho[lang] || rank.taisho.en;
-	const randomComment =
-		taishoLines[Math.floor(Math.random() * taishoLines.length)];
-	selectedTaishoComment = randomComment;
+	selectedTaishoIndex = Math.floor(Math.random() * taishoLines.length);
+	const randomComment = taishoLines[selectedTaishoIndex];
 	const rankName = rank.name[lang] || rank.name.en;
 
 	resultScore.textContent = score.toLocaleString();
@@ -855,7 +854,8 @@ function getShareText(): string {
 	const lang = i18n.getLanguage() as "ja" | "en";
 	const modeName = currentConfig.MODE_NAME[lang] || currentConfig.MODE_NAME.en;
 	const rankName = rank.name[lang] || rank.name.en;
-	const currentComment = selectedTaishoComment;
+	const taishoLines = rank.taisho[lang] || rank.taisho.en;
+	const currentComment = taishoLines[selectedTaishoIndex] ?? taishoLines[0] ?? "";
 	const hashtag = i18n.t("qm.hashtag");
 	const url = QUANTUM_MAGURO_URL;
 
