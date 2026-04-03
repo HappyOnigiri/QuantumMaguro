@@ -1,4 +1,4 @@
-.PHONY: ci ci-check ts-check-diff ts-fix-diff html-check-diff html-fix-diff check-ts watch-ui build-ui repomix check-ts-rules setup
+.PHONY: ci ci-check ts-check-diff ts-fix-diff html-check-diff html-fix-diff check-ts run-dev repomix check-ts-rules setup
 # =============================================================================
 # Any Products Makefile
 # =============================================================================
@@ -13,14 +13,9 @@ ci-check:
 	$(MAKE) html-check-diff
 	$(MAKE) check-ts
 	$(MAKE) check-ts-rules
-	$(MAKE) check-sushi-data
 
-# ポータルのビルド
-build-ui:
-	npm run build
-
-# ポータルの開発サーバー起動
-watch-ui:
+# 開発サーバー起動
+run-dev:
 	npm run dev
 
 # 各プロジェクトディレクトリで TypeScript の型チェックを実行
@@ -42,9 +37,8 @@ check-ts-rules:
 
 # 寿司データのチェック
 check-sushi-data:
-	@echo "Checking sushi data in quantum-maguro..."
-	@cd quantum-maguro && \
-	scripts=$$(ls check_scripts/*.mjs check_scripts/*.js check_scripts/*.py check_scripts/*.sh 2>/dev/null); \
+	@echo "Checking sushi data..."
+	@scripts=$$(ls check_scripts/*.mjs check_scripts/*.js check_scripts/*.py check_scripts/*.sh 2>/dev/null); \
 	if [ -z "$$scripts" ]; then \
 		echo "No check scripts found in check_scripts/"; \
 	else \

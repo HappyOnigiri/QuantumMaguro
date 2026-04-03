@@ -27,7 +27,7 @@
     "noUncheckedSideEffectImports": true,
     "baseUrl": ".",
     "paths": {
-      "@shared-ts/*": ["src/shared/*"]
+      "@shared-ts/*": ["./src/shared/*"]
     }
   },
   "include": [
