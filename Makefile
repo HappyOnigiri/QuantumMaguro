@@ -1,4 +1,4 @@
-.PHONY: ci ci-check ts-check-diff ts-fix-diff html-check-diff html-fix-diff check-ts run-dev repomix check-ts-rules setup
+.PHONY: ci ci-check ts-check-diff ts-fix-diff html-check-diff html-fix-diff check-ts run-dev repomix check-ts-rules check-sushi-data setup
 # =============================================================================
 # Any Products Makefile
 # =============================================================================
