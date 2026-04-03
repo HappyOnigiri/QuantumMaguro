@@ -439,15 +439,7 @@ function handleKeyInput(char: string, isDebugAutoMatch = false) {
 					capturedThisTick.push(sushi);
 					break;
 				}
-			} else if (idx > 0) {
-				// Mismatched input after a partial match: reset this pattern's progress
-				sushi.matchIndices[p] = -1;
 			}
-		}
-
-		// If all patterns were reset, allow fresh matching from the start
-		if (!sushi.captured && sushi.matchIndices.every((idx) => idx < 0)) {
-			sushi.matchIndices.fill(0);
 		}
 
 		if (!sushi.captured) {
