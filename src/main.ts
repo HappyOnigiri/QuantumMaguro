@@ -766,6 +766,8 @@ function startGame(config: GameConfig = NORMAL_CONFIG) {
 	timeValue.textContent = String(currentConfig.INITIAL_TIME);
 	inputDisplay.textContent = "";
 	inputHint.textContent = i18n.t("qm.hint_default");
+	inputHint.style.color = "";
+	inputHint.style.fontWeight = "";
 
 	titleScreen.style.display = "none";
 	resultScreen.style.display = "none";
