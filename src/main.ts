@@ -103,7 +103,7 @@ function getTaishoLine(trigger: string): string {
 
 // ---------- Game State ----------
 
-let gameState: "title" | "playing" | "result" = "title";
+let gameState: "title" | "countdown" | "playing" | "result" = "title";
 let score = 0;
 let combo = 0;
 let maxCombo = 0;
@@ -724,6 +724,7 @@ function startCountdown(callback: () => void) {
 }
 
 function startGame(config: GameConfig = NORMAL_CONFIG) {
+	gameState = "countdown";
 	currentConfig = config;
 	// 既存の処理をキャンセル
 	cancelAnimationFrame(animFrameId);
