@@ -855,7 +855,8 @@ function getShareText(): string {
 	const modeName = currentConfig.MODE_NAME[lang] || currentConfig.MODE_NAME.en;
 	const rankName = rank.name[lang] || rank.name.en;
 	const taishoLines = rank.taisho[lang] || rank.taisho.en;
-	const currentComment = taishoLines[selectedTaishoIndex] ?? taishoLines[0] ?? "";
+	const currentComment =
+		taishoLines[selectedTaishoIndex] ?? taishoLines[0] ?? "";
 	const hashtag = i18n.t("qm.hashtag");
 	const url = QUANTUM_MAGURO_URL;
 
