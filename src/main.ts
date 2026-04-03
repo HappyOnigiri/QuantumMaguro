@@ -368,12 +368,18 @@ function showScorePopup(
 
 // ---------- Combo Burst ----------
 
+let comboBurstTimeoutId = 0;
+
 function showComboBurst(text: string) {
 	comboBurst.textContent = text;
 	comboBurst.classList.remove("show");
 	void comboBurst.offsetWidth;
 	comboBurst.classList.add("show");
-	setTimeout(() => comboBurst.classList.remove("show"), 800);
+	clearTimeout(comboBurstTimeoutId);
+	comboBurstTimeoutId = window.setTimeout(
+		() => comboBurst.classList.remove("show"),
+		800,
+	);
 }
 
 // ---------- Taisho ----------
