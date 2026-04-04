@@ -49,10 +49,10 @@ git clone git@github.com:HappyOnigiri/GamePortal
 cd GamePortal
 
 # Install dependencies
-npm install
+pnpm install
 
 # Start the development server
-npm run dev
+pnpm run dev
 ```
 
 ---
