@@ -43,10 +43,10 @@ git clone git@github.com:HappyOnigiri/QuantumMaguro
 cd QuantumMaguro
 
 # Install dependencies
-npm install
+pnpm install
 
 # Start the development server
-npm run dev
+pnpm run dev
 ```
 
 ---
