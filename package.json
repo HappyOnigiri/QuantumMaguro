@@ -1,9 +1,12 @@
 {
-  "name": "any-products-root",
+  "name": "quantum-maguro",
   "private": true,
   "version": "1.5.0",
+  "engines": {
+    "node": "24.x"
+  },
   "license": "MIT",
-  "description": "Root package to manage multiple applications",
+  "description": "Quantum Maguro - A conveyor belt sushi typing game",
   "packageManager": "pnpm@10.33.0",
   "scripts": {
     "dev": "vite",
@@ -11,7 +14,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@types/node": "^25.3.0",
+    "@types/node": "^24.12.0",
     "prettier": "3.4.2",
     "typescript": "~5.9.3",
     "vite": "^7.3.1",
