@@ -17,11 +17,11 @@ ci-check:
 
 # ポータルのビルド
 build-ui:
-	npm run build
+	pnpm run build
 
 # ポータルの開発サーバー起動
 watch-ui:
-	npm run dev
+	pnpm run dev
 
 # 各プロジェクトディレクトリで TypeScript の型チェックを実行
 check-ts:
@@ -30,7 +30,7 @@ check-ts:
 		if [ "$$dir" != "." ] && [ "$$dir" != "./_template" ]; then \
 			echo "------------------------------------------------------------"; \
 			echo "Checking: $$dir"; \
-			(cd $$dir && npx -p typescript tsc --noEmit) || exit 1; \
+			pnpm exec tsc --noEmit -p $$dir/tsconfig.json || exit 1; \
 		fi \
 	done
 	@echo "------------------------------------------------------------"
@@ -75,7 +75,7 @@ ts-check-diff:
 	fi; \
 	echo "Checking TS/TSX files:"; \
 	echo "$$files" | sed 's/^/ - /'; \
-	npx biome check $$files
+	pnpm exec biome check $$files
 
 # TS/TSXの自動修正
 ts-fix-diff:
@@ -94,7 +94,7 @@ ts-fix-diff:
 	fi; \
 	echo "Fixing TS/TSX files:"; \
 	echo "$$files" | sed 's/^/ - /'; \
-	npx biome check --write $$files
+	pnpm exec biome check --write $$files
 
 # HTMLのチェック（Prettier使用）
 html-check-diff:
@@ -113,7 +113,7 @@ html-check-diff:
 	fi; \
 	echo "Checking HTML files:"; \
 	echo "$$files" | sed 's/^/ - /'; \
-	npx prettier --check $$files
+	pnpm exec prettier --check $$files
 
 # HTMLの自動修正
 html-fix-diff:
@@ -132,7 +132,7 @@ html-fix-diff:
 	fi; \
 	echo "Fixing HTML files:"; \
 	echo "$$files" | sed 's/^/ - /'; \
-	npx prettier --write $$files
+	pnpm exec prettier --write $$files
 
 # 各アプリケーションの repomix を作成
 repomix-apps:
@@ -140,19 +140,19 @@ repomix-apps:
 	@apps=$$(jq -r 'keys[] | select(. != "_template")' apps.json); \
 	for app in $$apps; do \
 		echo "Generating repomix for $$app..."; \
-		npx repomix $$app --ignore "**/node_modules/**,**/*.png,**/*.jpg,**/*.jpeg,**/*.gif,**/*.svg,**/*.ico" --output tmp/repomix/apps/$$app.txt; \
+		pnpm dlx repomix $$app --ignore "**/node_modules/**,**/*.png,**/*.jpg,**/*.jpeg,**/*.gif,**/*.svg,**/*.ico" --output tmp/repomix/apps/$$app.txt; \
 	done
 
 # プロジェクト全体を一つのファイルにまとめる (LLM用)
 repomix: repomix-apps
 	@mkdir -p tmp/repomix
 	# フルバージョン
-	npx repomix --output tmp/repomix/repomix-full.txt
+	pnpm dlx repomix --output tmp/repomix/repomix-full.txt
 	# ロックファイル、画像、ライセンス等を除外したバージョン
-	npx repomix --ignore "**/package-lock.json,**/node_modules/**,**/*.png,**/*.jpg,**/*.jpeg,**/*.gif,**/*.svg,**/*.ico,LICENSE,**/.agent/**" --output tmp/repomix/repomix-lite.txt
+	pnpm dlx repomix --ignore "**/pnpm-lock.yaml,**/node_modules/**,**/*.png,**/*.jpg,**/*.jpeg,**/*.gif,**/*.svg,**/*.ico,LICENSE,**/.agent/**" --output tmp/repomix/repomix-lite.txt
 	# さらにテストファイルを除外したバージョン
-	npx repomix --ignore "**/package-lock.json,**/node_modules/**,**/*.png,**/*.jpg,**/*.jpeg,**/*.gif,**/*.svg,**/*.ico,LICENSE,**/.agent/**,**/*.test.ts,**/test/**,public/robots.txt,public/sitemap.xml,public/site.webmanifest,.gitignore,scripts/*.py,Makefile,vitest.config.ts,README.md" --output tmp/repomix/repomix-lite-no-tests.txt
+	pnpm dlx repomix --ignore "**/pnpm-lock.yaml,**/node_modules/**,**/*.png,**/*.jpg,**/*.jpeg,**/*.gif,**/*.svg,**/*.ico,LICENSE,**/.agent/**,**/*.test.ts,**/test/**,public/robots.txt,public/sitemap.xml,public/site.webmanifest,.gitignore,scripts/*.py,Makefile,vitest.config.ts,README.md" --output tmp/repomix/repomix-lite-no-tests.txt
 
 setup:
 	curl -fsSL https://raw.githubusercontent.com/HappyOnigiri/ShareSettings/main/SyncRule/run.sh | bash
-	npm ci
+	pnpm install --frozen-lockfile
