@@ -139,7 +139,6 @@ repomix:
 	pnpm dlx repomix --ignore "**/pnpm-lock.yaml,**/node_modules/**,**/*.png,**/*.jpg,**/*.jpeg,**/*.gif,**/*.svg,**/*.ico,LICENSE,**/.agent/**,**/*.test.ts,**/test/**,public/robots.txt,public/sitemap.xml,public/site.webmanifest,.gitignore,scripts/*.py,Makefile,vitest.config.ts,README.md" --output tmp/repomix/repomix-lite-no-tests.txt
 
 setup:
-	curl -fsSL https://raw.githubusercontent.com/HappyOnigiri/ShareSettings/main/SyncRule/run.sh | bash
 	corepack enable
 	COREPACK_ENABLE_DOWNLOAD_PROMPT=0 corepack prepare pnpm --activate
 	COREPACK_ENABLE_DOWNLOAD_PROMPT=0 pnpm install --frozen-lockfile
